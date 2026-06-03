@@ -1,2 +1,2 @@
 # DecodeLabs-Internship
-Projects for DecodeLabs Internship 2026 
+Projects for DecodeLabs Internship as a full stack web developer.
