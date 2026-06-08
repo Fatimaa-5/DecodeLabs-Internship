@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parrot Coffee House</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#050505;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    section{
+      padding:90px 8%;
+    }
+
+    html{
+      scroll-padding-top:100px;
+    }
+
+    :root{
+      --green:#00c853;
+      --green-light:#69f0ae;
+      --dark:#0b0b0b;
+      --light:#ffffff;
+      --card:#111;
+      --gray:#cf;
+    }
+
+    /* NAVBAR */
+    header{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      background:rgba(0,0,0,0.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 8%;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:700;
+      color:var(--green);
+    }
+
+    .logo i{
+      font-size:34px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:30px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:white;
+      font-size:16px;
+      position:relative;
+      transition:0.3s;
+    }
+
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:0%;
+      height:2px;
+      background:var(--green);
+      transition:0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--green);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after{
+      width:100%;
+    }
+
+    .nav-btn{
+      padding:12px 24px;
+      background:var(--green);
+      border:none;
+      border-radius:40px;
+      color:black;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 15px rgba(0,200,83,0.4);
+    }
+
+    .nav-btn:hover{
+      background:var(--green-light);
+      transform:translateY(-2px);
+      box-shadow:0 0 25px rgba(0,200,83,0.7);
+    }
+
+    #menu{
+      display:none;
+      font-size:28px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* HERO - Background Image */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background:linear-gradient(rgba(0.1,0,0,0.5), rgba(0,0,0,0.5)), 
+                 url('images/img1.jpeg') no-repeat center/cover;
+      padding-top:150px;
+      position:relative;
+    }
+
+    .hero-text{
+      max-width:750px;
+      position:relative;
+      z-index:1;
+      margin-bottom: 5px;
+    }
+
+    .hero-text h1{
+      font-size:70px;
+      line-height:1.1;
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .hero-text span{
+      color:var(--green);
+    }
+
+    .hero-text p{
+      color:var(--gray);
+      line-height:1.8;
+      margin-bottom:35px;
+      font-size:17px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .btn{
+      padding:14px 32px;
+      border-radius:40px;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:600;
+      transition:0.3s;
+      text-decoration:none;
+      display:inline-block;
+    }
+
+    /* Always visible glow */
+    .btn-green{
+      background:var(--green);
+      color:black;
+      box-shadow:0 0 20px rgba(0,200,83,0.5);
+    }
+
+    .btn-green:hover{
+      background:var(--green-light);
+      transform:translateY(-5px);
+      box-shadow:0 0 30px rgba(0,200,83,0.8);
+    }
+
+    .btn-dark{
+      background:transparent;
+      border:2px solid white;
+      color:white;
+      box-shadow:0 0 15px rgba(255,255,255,0.2);
+    }
+
+    .btn-dark:hover{
+      border-color:var(--green);
+      color:var(--green);
+      transform:translateY(-5px);
+      box-shadow:0 0 25px rgba(0,200,83,0.6);
+    }
+
+    /* FEATURES */
+    .features{
+      background:#0d0d0d;
+    }
+
+    .features-heading{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .features-heading h2{
+      font-size:50px;
+      margin-bottom:15px;
+    }
+
+    .features-heading h2 span{
+      color:var(--green);
+    }
+
+    .features-heading p{
+      color:#d0d0d0;
+      font-size:16px;
+    }
+
+    .feature-container{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:25px;
+    }
+
+    /* Always visible glow on boxes */
+    .feature-box{
+      background:#111;
+      padding:30px;
+      border-radius:20px;
+      text-align:center;
+      transition:0.4s;
+      border:1px solid rgba(0,200,83,0.3);
+      box-shadow:0 0 20px rgba(0,200,83,0.2);
+    }
+
+    .feature-box:hover{
+      transform:translateY(-10px);
+      border-color:var(--green);
+      box-shadow:0 0 30px rgba(0,200,83,0.5);
+    }
+
+    .feature-box i{
+      font-size:40px;
+      color:var(--green);
+      margin-bottom:20px;
+    }
+
+    /* ABOUT - Background Image */
+    .about{
+      position:relative;
+      background:linear-gradient(rgba(0.1,0,0,0.5), rgba(0,0,0,0.5)), 
+                 url('images/img2.jpeg') no-repeat center/cover;
+      text-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:80vh;
+    }
+
+    .about-text{
+      max-width:800px;
+      position:relative;
+      z-index:1;
+    }
+
+    .section-title{
+      color:var(--green);
+      font-size:18px;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .about-text h2{
+      font-size:50px;
+      margin-bottom:20px;
+      line-height:1.2;
+    }
+
+    .about-text p{
+      color:#d0d0d0;
+      line-height:1.8;
+      margin-bottom:30px;
+      font-size:16px;
+    }
+
+    /* MENU */
+    .menu{
+      background:#0d0d0d;
+    }
+
+    .menu h2{
+      text-align:center;
+      font-size:50px;
+      margin-bottom:50px;
+    }
+
+    .menu h2 span{
+      color:var(--green);
+    }
+
+    .menu-container{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:25px;
+    }
+
+    .menu-card{
+      background:#111;
+      border-radius:20px;
+      overflow:hidden;
+      transition:0.4s;
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow:0 0 15px rgba(0,200,83,0.05);
+    }
+
+    .menu-card:hover{
+      transform:translateY(-10px);
+      border-color:var(--green);
+      box-shadow:0 0 25px rgba(0,200,83,0.4);
+    }
+
+    .menu-card img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+    }
+
+    .menu-content{
+      padding:20px;
+    }
+
+    .menu-content h3{
+      margin-bottom:10px;
+    }
+
+    .price{
+      color:var(--green);
+      font-size:22px;
+      font-weight:700;
+      margin-top:15px;
+    }
+
+    /* OFFER */
+    .offer{
+      padding:0 8% 80px;
+    }
+
+    .offer-box{
+      background:linear-gradient(to right,#132000,#0d0d0d);
+      padding:50px;
+      border-radius:30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+      box-shadow:0 0 25px rgba(0,200,83,0.2);
+    }
+
+    .offer-box h2{
+      font-size:55px;
+    }
+
+    .offer-box span{
+      color:var(--green);
+    }
+
+    /* TESTIMONIAL */
+    .testimonial{
+      background:#0d0d0d;
+    }
+
+    .testimonial h2{
+      text-align:center;
+      margin-bottom:50px;
+      font-size:45px;
+    }
+
+    .testimonial h2 span{
+      color:var(--green);
+    }
+
+    .testimonial-container{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:25px;
+    }
+
+    .testimonial-box{
+      background:#111;
+      padding:30px;
+      border-radius:20px;
+      transition:0.4s;
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow:0 0 15px rgba(0,200,83,0.15);
+    }
+
+    .testimonial-box:hover{
+      transform:translateY(-10px);
+      border-color:var(--green);
+      box-shadow:0 0 25px rgba(0,200,83,0.4);
+    }
+
+    /* CONTACT */
+    .contact-container{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+    }
+
+    .contact-form{
+      background:#111;
+      padding:40px;
+      border-radius:20px;
+      border:1px solid rgba(0,200,83,0.3);
+      box-shadow:0 0 20px rgba(0,200,83,0.2);
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:15px;
+      margin-bottom:20px;
+      border:none;
+      border-radius:10px;
+      background:#1b1b1b;
+      color:white;
+      outline:none;
+      transition:0.3s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus{
+      border:1px solid var(--green);
+      box-shadow:0 0 15px rgba(0,200,83,0.3);
+    }
+
+    .contact-form textarea{
+      height:150px;
+      resize:none;
+    }
+
+    iframe{
+      width:100%;
+      height:100%;
+      min-height:450px;
+      border:none;
+      border-radius:20px;
+      box-shadow:0 0 20px rgba(0,200,83,0.2);
+    }
+
+    /* FOOTER */
+    footer{
+      background:black;
+      padding:50px 8%;
+      border-top:1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-container{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:30px;
+    }
+
+    .footer-box h3{
+      color:var(--green);
+      margin-bottom:20px;
+    }
+
+    .footer-box a{
+      display:block;
+      color:#ccc;
+      margin-bottom:12px;
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    .footer-box a:hover{
+      color:var(--green);
+      transform:translateX(5px);
+    }
+
+    .socials{
+      display:flex;
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .socials i{
+      width:45px;
+      height:45px;
+      background:#111;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius:50%;
+      transition:0.3s;
+      cursor:pointer;
+      box-shadow:0 0 10px rgba(0,200,83,0.2);
+    }
+
+    .socials i:hover{
+      background:var(--green);
+      color:black;
+      transform:translateY(-5px);
+      box-shadow:0 0 20px rgba(0,200,83,0.6);
+    }
+
+    /* MODAL */
+    .modal{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100vh;
+      background:rgba(0,0,0,0.9);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+    }
+
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-content{
+      background:#111;
+      width:90%;
+      max-width:450px;
+      padding:40px;
+      border-radius:20px;
+      position:relative;
+      border:1px solid var(--green);
+      box-shadow:0 0 30px rgba(0,200,83,0.4);
+    }
+
+    .close{
+      position:absolute;
+      right:20px;
+      top:15px;
+      font-size:30px;
+      cursor:pointer;
+      color:var(--green);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1200px){
+      .menu-container{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .feature-container{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .testimonial-container{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .hero-text h1{
+        font-size:60px;
+      }
+    }
+
+    @media(max-width:991px){
+      .hero-text h1{
+        font-size:50px;
+      }
+      .about-text h2{
+        font-size:40px;
+      }
+      .contact-container{
+        grid-template-columns:1fr;
+      }
+      .footer-container{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .nav-links{
+        position:absolute;
+        top:100%;
+        right:-100%;
+        width:280px;
+        background:#111;
+        flex-direction:column;
+        padding:30px;
+        transition:0.5s;
+        border-left:1px solid #222;
+      }
+      .nav-links.active{
+        right:0;
+      }
+      #menu{
+        display:block;
+      }
+    }
+
+    @media(max-width:768px){
+      .hero-text h1{
+        font-size:42px;
+      }
+      .menu-container,
+      .feature-container,
+      .testimonial-container{
+        grid-template-columns:1fr;
+      }
+      .footer-container{
+        grid-template-columns:1fr;
+      }
+      .offer-box{
+        flex-direction:column;
+        text-align:center;
+      }
+      .offer-box h2{
+        font-size:38px;
+      }
+      .about-text h2{
+        font-size:35px;
+      }
+      .features-heading h2{
+        font-size:38px;
+      }
+    }
+
+    @media(max-width:500px){
+      section{
+        padding:70px 5%;
+      }
+      .hero-text h1{
+        font-size:36px;
+      }
+      .navbar{
+        padding:18px 5%;
+      }
+      .btn{
+        width:100%;
+      }
+      .hero-buttons{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-dove"></i>
+        Parrot Coffee
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#menu-section">Menu</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      
+      <i class="fa-solid fa-bars" id="menu"></i>
+    </nav>
+  </header>
+
+  <!-- HERO with Background Image -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Good Coffee.<br><span>Great Vibes.</span></h1>
+      <p>Handcrafted coffee made with premium beans and lots of passion. Relax and enjoy a modern coffee experience with Parrot Coffee House.</p>
+      <div class="hero-buttons">
+        <a href="#menu-section" class="btn btn-green">Explore Menu</a>
+        <button class="btn btn-dark" onclick="openModal()">Order Online</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES with Heading -->
+  <section class="features" id="features">
+    <div class="features-heading">
+      <h2>Our <span>Features</span></h2>
+      <p>Why choose Parrot Coffee House</p>
+    </div>
+    <div class="feature-container">
+      <div class="feature-box">
+        <i class="fa-solid fa-mug-hot"></i>
+        <h3>Premium Beans</h3>
+        <p>Freshly brewed coffee with organic beans.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-leaf"></i>
+        <h3>Cozy Ambience</h3>
+        <p>Feel relaxed with modern interior vibes.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-heart"></i>
+        <h3>Made with Love</h3>
+        <p>Every coffee crafted carefully for customers.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-wifi"></i>
+        <h3>Free WiFi</h3>
+        <p>Work and chill with high speed internet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT with Background Image -->
+  <section class="about" id="about">
+    <div class="about-text">
+      <p class="section-title">Our Story</p>
+      <h2>Brewed with Passion, Served with <span>Love.</span></h2>
+      <p>Our coffee house was built for coffee lovers who enjoy modern ambience, quality drinks and peaceful moments.</p>
+      <button class="btn btn-green" onclick="openModal()">Learn More</button>
+    </div>
+  </section>
+
+  <section class="menu" id="menu-section">
+    <h2>Our <span>Popular Picks</span></h2>
+    <div class="menu-container">
+      <div class="menu-card">
+        <img src="images/img3.jpeg">
+        <div class="menu-content">
+          <h3>Cappuccino</h3>
+          <p>Rich espresso with creamy milk foam.</p>
+          <div class="price">Rs 450</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="images/img8.jpeg">
+        <div class="menu-content">
+          <h3>Iced Latte</h3>
+          <p>Refreshing chilled latte with ice.</p>
+          <div class="price">Rs 550</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="images/img5.jpeg">
+        <div class="menu-content">
+          <h3>Mocha</h3>
+          <p>Chocolate and coffee perfect combination.</p>
+          <div class="price">Rs 600</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="images/img6.jpeg">
+        <div class="menu-content">
+          <h3>Americano</h3>
+          <p>Classic black coffee with rich aroma.</p>
+          <div class="price">Rs 400</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer">
+    <div class="offer-box">
+      <div>
+        <h2>Flat <span>20% OFF</span></h2>
+        <p>On all coffee orders this weekend.</p>
+      </div>
+      <button class="btn btn-green" onclick="openModal()">Order Now</button>
+    </div>
+  </section>
+
+  <section class="testimonial" id="testimonials">
+    <h2>Loved By <span>Coffee Lovers</span></h2>
+    <div class="testimonial-container">
+      
+      <div class="testimonial-box">
+        <p>“Best coffee in town. Amazing ambience and friendly staff.”</p>
+        <br>
+        <h4>Ali Ahmed</h4>
+      </div>
+
+      <div class="testimonial-box">
+        <p>“Beautiful responsive website and modern cafe vibes.”</p>
+        <br>
+        <h4>Fatima Noor</h4>
+      </div>
+
+      <div class="testimonial-box">
+        <p>“Loved the mocha and the interior design.”</p>
+        <br>
+        <h4>Hamza Khan</h4>
+      </div>
+
+      <div class="testimonial-box">
+        <p>“Perfect place for work and coffee. WiFi is super fast!”</p>
+        <br>
+        <h4>Sara Malik</h4>
+      </div>
+
+      <div class="testimonial-box">
+        <p>“Staff is very polite and coffee is always fresh.”</p>
+        <br>
+        <h4>Ahmed Raza</h4>
+      </div>
+
+      <div class="testimonial-box">
+        <p>“Best cappuccino I’ve ever had. Highly recommend!”</p>
+        <br>
+        <h4>Ayesha Siddiqui</h4>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-container">
+      <div class="contact-form">
+        <h2 style="margin-bottom:25px;">Contact Us</h2>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message"></textarea>
+        <button class="btn btn-green" style="width:100%;">Send Message</button>
+      </div>
+      <iframe src="https://maps.google.com/maps?q=faisalabad&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-box">
+        <h3>Parrot Coffee</h3>
+        <p>Great coffee and peaceful vibes.</p>
+        <div class="socials">
+          <i class="fa-brands fa-facebook-f"></i>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-youtube"></i>
+          <i class="fa-brands fa-tiktok"></i>
+        </div>
+      </div>
+      <div class="footer-box">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu-section">Menu</a>
+      </div>
+      <div class="footer-box">
+        <h3>Services</h3>
+        <a href="#">Coffee</a>
+        <a href="#">Cold Drinks</a>
+        <a href="#">Desserts</a>
+      </div>
+      <div class="footer-box">
+        <h3>Contact</h3>
+        <a href="#">+92 300 0000</a>
+        <a href="#">parrotcoffee@gmail.com</a>
+        <a href="#">Faisalabad, Pakistan</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 style="margin-bottom:20px;">Order Coffee</h2>
+      <input type="text" placeholder="Your Name" style="width:100%;padding:14px;margin-bottom:15px;background:#1b1b1b;border:none;border-radius:10px;color:white;">
+      <input type="text" placeholder="Coffee Name" style="width:100%;padding:14px;margin-bottom:15px;background:#1b1b1b;border:none;border-radius:10px;color:white;">
+      <button class="btn btn-green" style="width:100%;">Place Order</button>
+    </div>
+  </div>
+
+  <script>
+    let menu = document.getElementById("menu");
+    let navLinks = document.getElementById("navLinks");
+    menu.onclick = () => {
+      navLinks.classList.toggle("active");
+    }
+
+    let modal = document.getElementById("modal");
+    function openModal(){
+      modal.classList.add("active");
+    }
+    function closeModal(){
+      modal.classList.remove("active");
+    }
+    window.onclick = function(e){
+      if(e.target == modal){
+        modal.classList.remove("active");
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      let sections = document.querySelectorAll('section');
+      let navLinks = document.querySelectorAll('.nav-links a');
+      sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+        if(top >= offset && top < offset + height) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if(link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
