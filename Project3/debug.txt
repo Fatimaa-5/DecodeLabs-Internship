@@ -1,0 +1,3 @@
+10:54:32 | Error Code: 0 | Tmp: C:\xampp\tmp\php9693.tmp
+11:09:19 | Error Code: 0 | Tmp: C:\xampp\tmp\php1F7B.tmp
+11:12:04 | Error Code: 0 | Tmp: C:\xampp\tmp\phpA175.tmp
