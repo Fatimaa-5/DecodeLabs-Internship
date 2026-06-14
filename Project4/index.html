@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMAX - Watch Movies Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'Poppins', sans-serif; }
+        .bebas { font-family: 'Bebas Neue', sans-serif; }
+        body { background: #0a0a0a; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(to top, #0a0a0a 0%, transparent 50%), linear-gradient(to right, #0a0a0a 0%, transparent 70%); }
+        .red-glow { box-shadow: 0 0 30px rgba(220, 38, 38, 0.5); }
+        .card-hover:hover { transform: scale(1.05); transition: all 0.3s; }
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #dc2626; transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+        .mobile-menu.open { transform: translateX(0); }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; }
+        .progress-fill { background: #dc2626; height: 100%; }
+        .movie-scroll::-webkit-scrollbar { height: 8px; }
+        .movie-scroll::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 10px; }
+        .movie-scroll::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-gradient-to-b from-black to-transparent">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-3xl md:text-4xl bebas text-red-600">CINEMAX</h1>
+                <div class="flex items-center gap-4 md:gap-8">
+                    <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+                        <a href="#home" class="nav-link active">HOME</a>
+                        <a href="#movie" class="nav-link">MOVIES</a>
+                        <a href="#drama" class="nav-link">CONTINUE</a>
+                        <a href="#contact" class="nav-link">CONTACT</a>
+                    </div>
+                    <button onclick="openAddModal()" class="hidden md:block bg-red-600 hover:bg-red-700 px-4 md:px-5 py-2 rounded-full font-bold text-xs md:text-sm">
+                        <i class="fas fa-plus mr-1 md:mr-2"></i>ADD MOVIE
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-black z-50 p-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl bebas text-red-600">CINEMAX</h2>
+            <button onclick="toggleMobileMenu()" class="text-2xl"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex flex-col gap-6 text-lg font-semibold">
+            <a href="#home" onclick="toggleMobileMenu()" class="nav-link">HOME</a>
+            <a href="#movie" onclick="toggleMobileMenu()" class="nav-link">MOVIES</a>
+            <a href="#drama" onclick="toggleMobileMenu()" class="nav-link">CONTINUE</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="nav-link">CONTACT</a>
+            <button onclick="openAddModal(); toggleMobileMenu()" class="text-left text-red-600">ADD MOVIE</button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen">
+        <img src="images/img1.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="Hero">
+        <div class="hero-gradient absolute inset-0"></div>
+        <div class="relative max-w-7xl mx-auto px-4 h-screen flex items-center pt-20">
+            <div class="max-w-2xl">
+                <h1 class="bebas text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-red-600 leading-none mb-4">DARK<br>KNIGHT</h1>
+                <div class="flex items-center gap-2 mb-4 flex-wrap">
+                    <div class="text-yellow-500 text-xs sm:text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <span class="text-gray-300 text-xs sm:text-sm">2023 | 1h 38m | Horror</span>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed text-xs sm:text-sm md:text-base">The Dark Knight is an Indonesian horror film released in 2023 directed by Anggy Umbara. A thrilling supernatural experience awaits.</p>
+                <div class="flex gap-3 flex-wrap">
+                    <button onclick="playMovie('https://www.youtube.com/watch?v=dQw4w9WgXcQ')" class="bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-full font-bold red-glow flex items-center gap-2 text-xs sm:text-sm md:text-base">
+                        <i class="fas fa-play"></i> PLAY NOW
+                    </button>
+                    <button onclick="downloadMovie('Dark Knight')" class="border-2 border-white hover:bg-white hover:text-black px-5 py-2.5 rounded-full font-bold flex items-center gap-2 text-xs sm:text-sm md:text-base">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRENDS NOW SECTION -->
+    <section id="movie" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+            <h2 class="text-xl md:text-2xl bebas">TRENDS NOW</h2>
+            <button onclick="openAddModal()" class="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold">
+                ADD MOVIE
+            </button>
+        </div>
+
+        <div id="genre" class="flex gap-2 md:gap-3 mb-8 overflow-x-auto pb-2">
+            <button onclick="filterGenre('All')" class="genre-btn bg-red-600 px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">All</button>
+            <button onclick="filterGenre('Horror')" class="genre-btn bg-gray-800 hover:bg-gray-700 px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">Horror</button>
+            <button onclick="filterGenre('Action')" class="genre-btn bg-gray-800 hover:bg-gray-700 px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">Action</button>
+            <button onclick="filterGenre('Comedy')" class="genre-btn bg-gray-800 hover:bg-gray-700 px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">Comedy</button>
+        </div>
+
+        <div id="loader" class="text-center py-20 hidden">
+            <i class="fas fa-spinner fa-spin text-4xl text-red-600"></i>
+            <p class="mt-4">Loading...</p>
+        </div>
+
+        <div id="movieGrid" class="movie-scroll flex gap-4 md:gap-6 overflow-x-auto pb-4"></div>
+        
+        <div id="emptyState" class="text-center py-20 hidden">
+            <i class="fas fa-film text-6xl text-gray-700 mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">No movies yet</h3>
+            <button onclick="openAddModal()" class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-lg font-semibold mt-4">
+                <i class="fas fa-plus mr-2"></i>Add First Movie
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTINUE WATCHING -->
+    <section id="drama" class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-xl md:text-2xl bebas mb-6">CONTINUE WATCHING</h2>
+        <div id="continueGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="max-w-7xl mx-auto px-4 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl bebas text-red-600 mb-2">CONTACT US</h2>
+            <p class="text-gray-400 text-sm md:text-base">Have questions? Send us a message</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+            <div>
+                <div class="bg-gray-900 p-6 md:p-8 rounded-xl border border-gray-800 mb-6">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="bg-red-600 p-3 rounded-lg flex-shrink-0">
+                            <i class="fas fa-envelope text-lg md:text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h3 class="font-bold mb-1 text-sm md:text-base">Email</h3>
+                            <p class="text-gray-400 text-sm md:text-base break-all">support@cinemax.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="bg-red-600 p-3 rounded-lg flex-shrink-0">
+                            <i class="fas fa-phone text-lg md:text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1 text-sm md:text-base">Phone</h3>
+                            <p class="text-gray-400 text-sm md:text-base">+92 300 1234567</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-600 p-3 rounded-lg flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-lg md:text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1 text-sm md:text-base">Location</h3>
+                            <p class="text-gray-400 text-sm md:text-base">Faisalabad, Punjab, PK</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-xs md:text-sm">Total Messages</p>
+                            <p id="messageCount" class="text-2xl md:text-3xl font-bold text-red-600">0</p>
+                        </div>
+                        <i class="fas fa-inbox text-3xl md:text-4xl text-red-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 p-6 md:p-8 rounded-xl border border-gray-800">
+                <form id="contactForm">
+                    <div class="mb-4">
+                        <label class="block text-xs md:text-sm font-semibold mb-2">Your Name</label>
+                        <input id="contactName" type="text" required class="w-full bg-gray-800 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base" placeholder="John Doe">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs md:text-sm font-semibold mb-2">Email Address</label>
+                        <input id="contactEmail" type="email" required class="w-full bg-gray-800 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base" placeholder="john@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-xs md:text-sm font-semibold mb-2">Message</label>
+                        <textarea id="contactMessage" rows="5" required class="w-full bg-gray-800 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base" placeholder="Type your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-bold red-glow text-sm md:text-base">
+                        <i class="fas fa-paper-plane mr-2"></i>SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-gray-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2 md:col-span-1">
+                    <h3 class="text-2xl md:text-3xl bebas text-red-600 mb-4">CINEMAX</h3>
+                    <p class="text-gray-400 text-xs md:text-sm mb-4">Your ultimate destination for movies and entertainment.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="bg-gray-800 p-2 rounded-lg hover:bg-red-600 transition text-sm"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="bg-gray-800 p-2 rounded-lg hover:bg-red-600 transition text-sm"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="bg-gray-800 p-2 rounded-lg hover:bg-red-600 transition text-sm"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="bg-gray-800 p-2 rounded-lg hover:bg-red-600 transition text-sm"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-sm md:text-base">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400 text-xs md:text-sm">
+                        <li><a href="#home" class="hover:text-red-600">Home</a></li>
+                        <li><a href="#movie" class="hover:text-red-600">Movies</a></li>
+                        <li><a href="#drama" class="hover:text-red-600">Continue Watching</a></li>
+                        <li><a href="#contact" class="hover:text-red-600">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-sm md:text-base">Genres</h4>
+                    <ul class="space-y-2 text-gray-400 text-xs md:text-sm">
+                        <li><a href="#" class="hover:text-red-600">Horror</a></li>
+                        <li><a href="#" class="hover:text-red-600">Action</a></li>
+                        <li><a href="#" class="hover:text-red-600">Comedy</a></li>
+                        <li><a href="#" class="hover:text-red-600">Drama</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-sm md:text-base">Project Info</h4>
+                    <ul class="space-y-2 text-gray-400 text-xs md:text-sm">
+                        <li>DecodLabs Project 4</li>
+                        <li>Frontend & Backend</li>
+                        <li>REST API Integration</li>
+                        <li>Async/Await + CRUD</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-xs md:text-sm">
+                <p>&copy; 2026 CINEMAX. Created by Fatima | DecodLabs Project 4 - Full Stack Development</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADD MOVIE MODAL -->
+    <div id="addModal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50 p-4">
+        <div class="bg-gray-900 rounded-xl p-6 md:p-8 w-full max-w-md border border-gray-700">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl md:text-2xl font-bold">Add New Movie</h2>
+                <button onclick="closeAddModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <form id="addMovieForm">
+                <input id="movieTitle" type="text" placeholder="Movie Name" required class="w-full bg-gray-800 px-4 py-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base">
+                <input id="moviePoster" type="url" placeholder="Poster URL" required class="w-full bg-gray-800 px-4 py-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base">
+                <input id="movieYoutube" type="url" placeholder="YouTube Link" required class="w-full bg-gray-800 px-4 py-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base">
+                <select id="movieGenre" class="w-full bg-gray-800 px-4 py-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base">
+                    <option>Horror</option><option>Action</option><option>Comedy</option><option>Drama</option>
+                </select>
+                <input id="movieRating" type="number" min="1" max="5" placeholder="Rating 1-5" required class="w-full bg-gray-800 px-4 py-3 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm md:text-base">
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-semibold text-sm md:text-base">
+                    <i class="fas fa-plus mr-2"></i>Add Movie
+                </button>
+            </form>
+        </div>
+    </div>
+
+<script>
+// ===== PROJECT 4 - FULL STACK WITH LOCALSTORAGE =====
+// Author: Fatima - DecodLabs Project 4
+// Features: REST API Simulation, Async/Await, CRUD Operations, Responsive Design
+
+let allMovies = [];
+let contactMessages = [];
+
+// 1. GET - Load Movies from LocalStorage
+async function loadMovies() {
+    const loader = document.getElementById('loader');
+    loader.classList.remove('hidden');
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const stored = localStorage.getItem('cinemax_movies');
+        allMovies = stored ? JSON.parse(stored) : getDemoMovies();
+        
+        renderMovies(allMovies);
+        renderContinueWatching();
+        updateMessageCount();
+        
+    } catch(error) {
+        console.error('Error:', error);
+    } finally {
+        loader.classList.add('hidden');
+    }
+}
+
+// 2. POST - Add Movie to LocalStorage
+async function addMovie(movieData) {
+    try {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        const newMovie = {
+            id: Date.now(),
+            ...movieData,
+            progress: Math.floor(Math.random() * 80) + 10
+        };
+        
+        allMovies.push(newMovie);
+        localStorage.setItem('cinemax_movies', JSON.stringify(allMovies));
+        
+        renderMovies(allMovies);
+        renderContinueWatching();
+        alert('Movie successfully added!');
+        closeAddModal();
+        
+    } catch(error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+// 3. POST - Submit Contact Form
+async function submitContact(contactData) {
+    try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const newMessage = {
+            id: Date.now(),
+            ...contactData,
+            timestamp: new Date().toISOString()
+        };
+        
+        contactMessages.push(newMessage);
+        localStorage.setItem('cinemax_contacts', JSON.stringify(contactMessages));
+        
+        updateMessageCount();
+        document.getElementById('contactForm').reset();
+        alert('Message sent successfully! We will contact you soon.');
+        
+    } catch(error) {
+        alert('Failed to send message: ' + error.message);
+    }
+}
+
+// 4. DELETE - Remove Movie from LocalStorage
+async function deleteMovie(movieId) {
+    if(!confirm('Delete this movie?')) return;
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        allMovies = allMovies.filter(m => m.id !== movieId);
+        localStorage.setItem('cinemax_movies', JSON.stringify(allMovies));
+        renderMovies(allMovies);
+        renderContinueWatching();
+    } catch(error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+// UI RENDER FUNCTIONS
+function renderMovies(movies) {
+    const grid = document.getElementById('movieGrid');
+    const empty = document.getElementById('emptyState');
+    
+    if(!movies.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+    }
+    
+    empty.classList.add('hidden');
+    grid.innerHTML = movies.map(movie => `
+        <div class="card-hover group relative flex-shrink-0 w-56 sm:w-64">
+            <div class="relative rounded-lg overflow-hidden mb-3 cursor-pointer" onclick="playMovie('${movie.youtube}')">
+                <img src="${movie.poster}" class="w-full h-72 sm:h-80 object-cover" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/300x450/1a1a1a/666?text=No+Image'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute top-3 right-3">
+                        <button onclick="event.stopPropagation(); deleteMovie(${movie.id})" class="bg-red-600 p-2 rounded-full hover:bg-red-700">
+                            <i class="fas fa-trash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            <h3 class="font-bold text-xs sm:text-sm mb-1">${movie.title}</h3>
+            <div class="flex items-center justify-between">
+                <div class="text-yellow-500 text-xs">
+                    ${'★'.repeat(movie.rating)}${'☆'.repeat(5-movie.rating)}
+                </div>
+                <span class="text-xs text-gray-400">${movie.genre}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderContinueWatching() {
+    const grid = document.getElementById('continueGrid');
+    const continueMovies = allMovies.slice(0, 3);
+    
+    grid.innerHTML = continueMovies.map(movie => `
+        <div class="relative rounded-xl overflow-hidden cursor-pointer card-hover" onclick="playMovie('${movie.youtube}')">
+            <img src="${movie.poster}" class="w-full h-48 object-cover" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/400x200/1a1a1a/666?text=No+Image'">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="bg-red-600 w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center red-glow">
+                    <i class="fas fa-play text-xl md:text-2xl"></i>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <h3 class="font-bold mb-2 text-sm md:text-base">${movie.title}</h3>
+                <div class="progress-bar rounded-full">
+                    <div class="progress-fill rounded-full" style="width: ${movie.progress}%"></div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function getDemoMovies() {
+    return [
+        {id: 1, title: "Pengantin Iblis", poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400", rating: 4, youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", genre: "Horror", progress: 65},
+        {id: 2, title: "Dark Knight", poster: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=400", rating: 5, youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", genre: "Horror", progress: 30},
+        {id: 3, title: "DreadOut", poster: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400", rating: 4, youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", genre: "Horror", progress: 80},
+        {id: 4, title: "John Wick 4", poster: "https://images.unsplash.com/photo-1531256456869-ce942a665e80?w=400", rating: 5, youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", genre: "Action", progress: 45},
+        {id: 5, title: "The Hangover", poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400", rating: 4, youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", genre: "Comedy", progress: 90},
+    ];
+}
+
+function updateMessageCount() {
+    const stored = localStorage.getItem('cinemax_contacts');
+    contactMessages = stored ? JSON.parse(stored) : [];
+    document.getElementById('messageCount').textContent = contactMessages.length;
+}
+
+function playMovie(url) {
+    window.open(url, '_blank');
+}
+
+function downloadMovie(name) {
+    alert(`${name} download started...`);
+}
+
+function filterGenre(genre) {
+    document.querySelectorAll('.genre-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600');
+        btn.classList.add('bg-gray-800');
+    });
+    event.target.classList.remove('bg-gray-800');
+    event.target.classList.add('bg-red-600');
+    
+    const filtered = genre === 'All' ? allMovies : allMovies.filter(m => m.genre === genre);
+    renderMovies(filtered);
+}
+
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+function openAddModal() {
+    document.getElementById('addModal').classList.remove('hidden');
+    document.getElementById('addModal').classList.add('flex');
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').classList.add('hidden');
+    document.getElementById('addModal').classList.remove('flex');
+    document.getElementById('addMovieForm').reset();
+}
+
+document.getElementById('addMovieForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const movieData = {
+        title: document.getElementById('movieTitle').value,
+        poster: document.getElementById('moviePoster').value,
+        youtube: document.getElementById('movieYoutube').value,
+        genre: document.getElementById('movieGenre').value,
+        rating: parseInt(document.getElementById('movieRating').value)
+    };
+    await addMovie(movieData);
+};
+
+document.getElementById('contactForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const contactData = {
+        name: document.getElementById('contactName').value,
+        email: document.getElementById('contactEmail').value,
+        message: document.getElementById('contactMessage').value
+    };
+    await submitContact(contactData);
+};
+
+// Initialize app
+loadMovies();
+</script>
+</body>
+</html>
